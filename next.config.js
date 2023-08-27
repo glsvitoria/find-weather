@@ -4,7 +4,8 @@ const nextConfig = {
   env: {
     OPEN_WEATHER_KEY: "00ca6488212176303dda00f246a78c46",
     GEOAPIFY_KEY: "1ccf08422edd4f68ac1f07a55cf2aa9a",
-    NEXT_PUBLIC_API_URL: "https://glsvitoria-weather.vercel.app/api",
+    NEXT_PUBLIC_API_URL: "http://localhost:3000/api",
+    // NEXT_PUBLIC_API_URL: "https://glsvitoria-weather.vercel.app/api",
   },
   async headers() {
     return [
@@ -15,8 +16,9 @@ const nextConfig = {
           { key: "Access-Control-Allow-Credentials", value: "true" },
           {
             key: "Access-Control-Allow-Origin",
-            value: "https://glsvitoria-weather.vercel.app/api",
-          }, // replace this your actual origin
+            value: "*",
+            // value: "https://glsvitoria-weather.vercel.app/api",
+          },
           {
             key: "Access-Control-Allow-Methods",
             value: "GET,DELETE,PATCH,POST,PUT",
