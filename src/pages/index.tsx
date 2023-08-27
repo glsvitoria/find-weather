@@ -5,8 +5,8 @@ import { Tabs, TabsContent } from "@radix-ui/react-tabs";
 import { Weather } from "@/components/pages/Weather";
 import { Search } from "@/components/pages/Search";
 import { Contact } from "@/components/pages/Contact";
-import { Music } from "@/components/pages/Music";
 import { Wind } from "@/components/pages/Wind";
+import { Music } from "@/components/pages/Music";
 
 const poppins = Poppins({
   subsets: ["latin"],
