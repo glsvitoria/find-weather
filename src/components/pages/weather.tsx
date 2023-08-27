@@ -122,22 +122,12 @@ export function Weather() {
 
 	if (!havePermission) {
 		return (
-			<div className="h-full flex flex-col justify-between lg:pt-24 pt-8 xxs:gap-0 gap-8">
-				<div className="flex flex-col gap-4">
-					<div className="flex flex-col gap-2 md:items-start items-center">
-						<p className="text-zinc-600 font-bold sm:text-base text-sm xxs:text-left text-center">
-							Horário Local
-						</p>
-						<h2 className="text-4xl xxs:text-left text-center">
-							{formatHour(currentTime)}
-						</h2>
-					</div>
-					<div className="lg:text-4xl text-3xl flex md:flex-row flex-col items-center gap-4 text-zinc-400">
-						<Info />
-						<h1 className="lg:text-3xl sm:text-xl text-lg md:text-left text-center">
-							Autorize a localização para poder ver o clima
-						</h1>
-					</div>
+			<div className="h-full flex flex-col justify-between pt-8 xxs:gap-0 gap-8">
+				<div className="lg:text-4xl text-3xl flex md:flex-row flex-col items-center gap-4 text-zinc-400">
+					<Info />
+					<h1 className="lg:text-3xl sm:text-xl text-lg md:text-left text-center">
+						Autorize a localização para poder ver o clima
+					</h1>
 				</div>
 			</div>
 		)

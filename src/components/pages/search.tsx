@@ -10,11 +10,11 @@ import { TableResults } from '../tableResults'
 import { IResultsAddress } from '@/types/types'
 import { api } from '@/services/api'
 
-export function FormTab() {
+export function Search() {
 	const [results, setResults] = useState<IResultsAddress[]>([])
 	const [isSearched, setIsSearched] = useState(false)
 
-	const [errorInRequest, setErrorInRequest] = useState(true)
+	const [errorInRequest, setErrorInRequest] = useState(false)
 
 	const formRef = useRef<FormHandles>(null)
 

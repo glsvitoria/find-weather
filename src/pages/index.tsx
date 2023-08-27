@@ -1,9 +1,9 @@
 import { Header } from '@/components/header'
 import { Poppins } from 'next/font/google'
 
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@radix-ui/react-tabs'
+import { Tabs, TabsContent } from '@radix-ui/react-tabs'
 import { Weather } from '@/components/pages/weather'
-import { FormTab } from '@/components/pages/form'
+import { Search } from '@/components/pages/search'
 import { Contact } from '@/components/pages/contact'
 import { Music } from '@/components/pages/music'
 import { Wind } from '@/components/pages/wind'
@@ -32,7 +32,7 @@ export default function Home() {
 					value="search"
 					className="xs:h-[calc(100%-4rem)] h-full"
 				>
-					<FormTab />
+					<Search />
 				</TabsContent>
 				<TabsContent
 					value="contact"
