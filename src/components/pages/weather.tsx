@@ -78,6 +78,7 @@ export function Weather() {
           const { latitude, longitude } = position.coords;
 
           fetchWeather({ latitude, longitude });
+          setHavePermission(true);
         },
         error => {
           setHavePermission(false);
