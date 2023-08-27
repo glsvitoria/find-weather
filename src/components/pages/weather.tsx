@@ -5,8 +5,6 @@ import { formatHour } from "@/utils/formatHour";
 import { kelvinToCelsius } from "@/utils/kelvinToCelsius";
 import { renderIconByWeather } from "@/utils/renderIconByWeather";
 import { CloudRain, Info, MapPinLine } from "@phosphor-icons/react";
-import { format } from "date-fns";
-import ptBR from "date-fns/locale/pt-BR";
 import { useCallback, useEffect, useState } from "react";
 import { Loading } from "../animations/loading";
 import Button from "../button";

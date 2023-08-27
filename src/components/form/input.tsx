@@ -1,7 +1,5 @@
-/* eslint-disable no-param-reassign */
 import { InputHTMLAttributes, useEffect, useRef } from "react";
 
-import { FileSearch } from "@phosphor-icons/react";
 import { overrideTailwindClasses } from "tailwind-override";
 
 import { useField } from "@unform/core";

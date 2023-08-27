@@ -1,14 +1,15 @@
 import { FormHandles } from "@unform/core";
 import { Form } from "@unform/web";
 import { useRef, useCallback, useState } from "react";
-import Input from "../form/input";
-import Textarea from "../form/textarea";
-import Button from "../button";
-import Dropzone from "../form/dropzone";
+
 import { AttachmentData } from "@/types/types";
 import * as Yup from "yup";
 import getValidationErrors from "@/utils/getValidationErrors";
 import { Sended } from "../animations/sended";
+import Input from "../form/input";
+import Textarea from "../form/textarea";
+import Dropzone from "../form/dropzone";
+import Button from "../button";
 
 type FormDataType = {
   name: string;

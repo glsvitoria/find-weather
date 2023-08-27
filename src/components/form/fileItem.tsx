@@ -1,8 +1,7 @@
 import { Dispatch, SetStateAction, useCallback, useState } from "react";
-import Lottie from "lottie-react";
 import { toast } from "react-toastify";
 
-import { Eye, FileArrowDown, Files, Trash } from "@phosphor-icons/react";
+import { FileArrowDown, Files, Trash } from "@phosphor-icons/react";
 
 import loadingAnimation from "../../assets/loading.json";
 import { AttachmentData } from "@/types/types";
@@ -23,11 +22,8 @@ export default function FileItem({
 }: IFileItemProps) {
   const { file, name } = data;
 
-  const [isLoading, setIsLoading] = useState(false);
-
   const handleViewAttachment = useCallback(async () => {
     try {
-      setIsLoading(true);
       const link = document.createElement("a");
 
       link.href = file;
@@ -35,9 +31,7 @@ export default function FileItem({
 
       link.click();
     } catch {
-      setIsLoading(false);
-
-      toast.error(`Erro ao abrir o arquivo: ${name}`);
+      toast.error(`Erro ao baixar o arquivo: ${name}`);
     }
   }, [file, name]);
 

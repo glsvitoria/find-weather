@@ -5,17 +5,16 @@ import {
   useRef,
   useState,
 } from "react";
-// import { MdCloudUpload } from "react-icons/md";
-// import { toast } from "react-toastify";
 import { useDropzone } from "react-dropzone";
 
 import { useField } from "@unform/core";
 import { Files, XCircle } from "@phosphor-icons/react";
 import { overrideTailwindClasses } from "tailwind-override";
 import readFileAsDataURL from "@/utils/readFileAsDataURL";
-import FileItem from "./fileItem";
 import { v4 as uuidv4 } from "uuid";
 import { AttachmentData } from "@/types/types";
+import FileItem from "./fileItem";
+import { toast } from "react-toastify";
 
 interface IDropzoneProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -56,14 +55,13 @@ export default function Dropzone({
   const onDropAccepted = useCallback(
     async (acceptedFiles: File[]) => {
       const attachmentsUploaded: AttachmentData[] = [];
-      // eslint-disable-next-line no-restricted-syntax
 
       for await (const file of acceptedFiles) {
         const data = await readFileAsDataURL(file);
 
-        // if (!data) {
-        //   toast.error("Favor anexar o arquivo novamente!");
-        // }
+        if (!data) {
+          toast.error("Favor anexar o arquivo novamente!");
+        }
 
         attachmentsUploaded.push({
           id: uuidv4(),
