@@ -1,18 +1,20 @@
 import { Form } from "@unform/web";
-import Input from "../form/input";
+import Input from "../form/Input";
 import { useCallback, useRef, useState } from "react";
 import { FormHandles } from "@unform/core/typings";
-import Button from "../button";
+import Button from "../Button";
 import { MagnifyingGlass, Question } from "@phosphor-icons/react";
 import * as Yup from "yup";
 import getValidationErrors from "@/utils/getValidationErrors";
-import { TableResults } from "../tableResults";
+import { TableResults } from "../TableResults";
 import { IResultsAddress } from "@/types/types";
 import { api } from "@/services/api";
+import { Loading } from "../animations/loading";
 
 export function Search() {
   const [results, setResults] = useState<IResultsAddress[]>([]);
   const [isSearched, setIsSearched] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [errorInRequest, setErrorInRequest] = useState(false);
 
@@ -20,6 +22,7 @@ export function Search() {
 
   const handleSubmit = useCallback(async (data: { street: string }) => {
     formRef.current?.setErrors({});
+    setIsLoading(true);
 
     const schema = Yup.object().shape({
       street: Yup.string().required("Nome da rua é obrigatório"),
@@ -32,7 +35,7 @@ export function Search() {
 
       const response = await api.get("/autocomplete", {
         params: {
-          text: data.street,
+          text: schemaValidated.street,
         },
       });
 
@@ -43,6 +46,7 @@ export function Search() {
 
       setResults(response.data.features.slice(0, 5));
       setIsSearched(true);
+      setIsLoading(false);
     } catch (error: any) {
       if (error instanceof Yup.ValidationError) {
         const errors = getValidationErrors(error);
@@ -80,35 +84,39 @@ export function Search() {
         </span>
       )}
 
-      <div className="h-full flex flex-col gap-2">
-        {isSearched && (
-          <header>
-            <h1 className="lg:text-3xl md:text-xl xs:text-lg">
-              Resultado da busca
-            </h1>
-            <p className="text-zinc-600 lg:text-base md:text-sm text-xs">
-              {results.length} resultados encontrados
-            </p>
-          </header>
-        )}
-        {results.length > 0 ? (
-          <TableResults results={results} />
-        ) : isSearched ? (
-          <div className="w-full mt-12 gap-4 flex flex-col items-center justify-center opacity-50">
-            <Question className="md:text-9xl text-7xl" />
-            <p className="xs:text-xl text-center">
-              Nenhum resultado foi encontrado. Tente outro endereço.
-            </p>
-          </div>
-        ) : (
-          <div className="w-full mt-12 gap-4 flex flex-col items-center justify-center opacity-50">
-            <MagnifyingGlass className="md:text-9xl text-7xl" />
-            <p className="xs:text-xl text-center">
-              Faça a busca para podermos mostrar os resultados.
-            </p>
-          </div>
-        )}
-      </div>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="h-full flex flex-col gap-2">
+          {isSearched && (
+            <header>
+              <h1 className="lg:text-3xl md:text-xl xs:text-lg">
+                Resultado da busca
+              </h1>
+              <p className="text-zinc-600 lg:text-base md:text-sm text-xs">
+                {results.length} resultados encontrados
+              </p>
+            </header>
+          )}
+          {results.length > 0 ? (
+            <TableResults results={results} />
+          ) : isSearched ? (
+            <div className="w-full mt-12 gap-4 flex flex-col items-center justify-center opacity-50">
+              <Question className="md:text-9xl text-7xl" />
+              <p className="xs:text-xl text-center">
+                Nenhum resultado foi encontrado. Tente outro endereço.
+              </p>
+            </div>
+          ) : (
+            <div className="w-full mt-12 gap-4 flex flex-col items-center justify-center opacity-50">
+              <MagnifyingGlass className="md:text-9xl text-7xl" />
+              <p className="xs:text-xl text-center">
+                Faça a busca para podermos mostrar os resultados.
+              </p>
+            </div>
+          )}
+        </div>
+      )}
     </section>
   );
 }

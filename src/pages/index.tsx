@@ -1,12 +1,12 @@
-import { Header } from "@/components/header";
+import { Header } from "@/components/Header";
 import { Poppins } from "next/font/google";
 
 import { Tabs, TabsContent } from "@radix-ui/react-tabs";
-import { Weather } from "@/components/pages/weather";
-import { Search } from "@/components/pages/search";
-import { Contact } from "@/components/pages/contact";
-import { Music } from "@/components/pages/music";
-import { Wind } from "@/components/pages/wind";
+import { Weather } from "@/components/pages/Weather";
+import { Search } from "@/components/pages/Search";
+import { Contact } from "@/components/pages/Contact";
+import { Music } from "@/components/pages/Music";
+import { Wind } from "@/components/pages/Wind";
 
 const poppins = Poppins({
   subsets: ["latin"],
