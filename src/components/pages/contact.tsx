@@ -6,10 +6,10 @@ import { AttachmentData } from "@/types/types";
 import * as Yup from "yup";
 import getValidationErrors from "@/utils/getValidationErrors";
 import { Sended } from "../animations/sended";
-import Input from "../form/Input";
-import Textarea from "../form/Textarea";
-import Dropzone from "../form/Dropzone";
-import Button from "../Button";
+import Input from "../form/input";
+import Textarea from "../form/textarea";
+import Dropzone from "../form/dropzone";
+import Button from "../button";
 
 type FormDataType = {
   name: string;
