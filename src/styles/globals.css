@@ -3,25 +3,69 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+	--foreground-rgb: 0, 0, 0;
+	--background-start-rgb: 37, 36, 35;
+	--background-end-rgb: 53, 51, 51;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+	:root {
+		--foreground-rgb: 255, 255, 255;
+		--background-start-rgb: 0, 0, 0;
+		--background-end-rgb: 0, 0, 0;
+	}
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+	color: rgb(var(--foreground-rgb));
+	background: rgb(37, 36, 35);
+	background: linear-gradient(
+		90deg,
+		rgba(37, 36, 35, 1) 0%,
+		rgba(53, 51, 51, 1) 50%,
+		rgba(37, 36, 35, 1) 100%
+	);
+}
+
+main {
+	background-image: url('../assets/bg.png');
+	-webkit-box-shadow: 0px 0px 43px 2px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 0px 0px 43px 2px rgba(0, 0, 0, 0.75);
+	box-shadow: 0px 0px 43px 2px rgba(0, 0, 0, 0.75);
+}
+
+button[aria-selected='true'] {
+	filter: brightness(2.5);
+}
+
+button[aria-selected='false'] {
+	filter: brightness(0.5);
+}
+
+textarea {
+	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.06), 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar {
+	width: 4px;
+	border-radius: 16px;
+}
+
+::-webkit-scrollbar-track {
+	background: trasparent;
+	border-radius: 16px;
+	margin: 10px 0;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #68686e;
+	border-radius: 16px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+::-webkit-scrollbar-corner {
+	background: #f1f1f1;
 }
