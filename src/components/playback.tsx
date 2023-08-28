@@ -7,6 +7,11 @@ import {
   PlayCircle,
 } from "@phosphor-icons/react";
 import SpotifyPlayer from "spotify-web-playback";
+import Image from "next/image";
+import SpotifyGuiderOne from "../assets/listen-music-guide-one.png";
+import SpotifyGuiderTwo from "../assets/listen-music-guide-two.png";
+import SpotifyGuiderThree from "../assets/enjoy-music.png";
+import { Footer } from "./footer";
 
 const track: ITrack = {
   name: "",
@@ -62,7 +67,7 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
       setTrack(state.track_window.current_track);
       setNextTracks(state.track_window.next_tracks);
       console.log(state.track_window.next_tracks);
-      
+
       setPaused(state.paused);
 
       spotify.getPlaybackState().then(state => {
@@ -70,26 +75,62 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
       });
     });
 
+    console.log(spotify);
+    
+
     setPlayer(spotify);
     spotify.connect(token);
-  }, [token]);
+  }, []);
 
   if (!is_active && player) {
     return (
       <>
         <div className="h-full flex flex-col justify-between pt-8 xxs:gap-0 gap-8">
-          <div className="lg:text-4xl text-3xl flex flex-col items-center gap-4 text-zinc-400">
-            <h2 className="lg:text-3xl sm:text-xl text-lg md:text-left text-center">
-              Entre no seu spotify por algum dispositivo e transfira para
-            </h2>
-            <h1 className="text-white uppercase lg:text-5xl sm:text-3xl text-xl">
-              Clima.io
+          <div className="flex flex-col items-center gap-4">
+            <h1 className="lg:text-3xl sm:text-xl text-lg md:text-left text-center mb-2 w-full">
+              Escute sua música se conectando ao spotify
             </h1>
-            <h2 className="lg:text-3xl sm:text-xl text-lg md:text-left text-center">
-              para ouvir a música por aqui.
+            <h2 className="lg:text-xl md:text-lg text-sm md:text-left text-center mb-16 w-full opacity-50">
+              Entre no seu spotify por algum dispositivo e siga os seguintes
+              passos para ouvir sua música por aqui:
             </h2>
+            <ol className="flex flex-col gap-8 pb-24">
+              <li className="md:grid md:grid-cols-2 flex flex-col items-center gap-4">
+                <p className="xl:text-2xl lg:text-xl">
+                  1. Clique no ícone a baixo para escolher onde deseja
+                  transmitir a música.
+                </p>
+                <Image
+                  src={SpotifyGuiderOne}
+                  alt="Guia do Spotify"
+                  className="xl:w-80 lg:w-64 md:w-48 w-full md:ml-auto"
+                />
+              </li>
+              <li className="md:grid md:grid-cols-2 flex flex-col-reverse items-center gap-4">
+                <Image
+                  src={SpotifyGuiderTwo}
+                  alt="Guia do Spotify"
+                  className="xl:w-80 lg:w-64 md:w-48 w-full md:ml-right"
+                />
+                <p className="xl:text-2xl lg:text-xl">
+                  2. Selecione o dispositivo "Clima.io" para poder transmitir a
+                  música aqui no navegador.
+                </p>
+              </li>
+              <li className="md:grid md:grid-cols-2 flex flex-col items-center gap-4">
+                <p className="xl:text-2xl lg:text-xl">
+                  3. Curta sua música e se divirta.
+                </p>
+                <Image
+                  src={SpotifyGuiderThree}
+                  alt="Guia do Spotify"
+                  className="xl:w-80 lg:w-64 md:w-48 w-full md:ml-auto"
+                />
+              </li>
+            </ol>
           </div>
         </div>
+        <Footer />
       </>
     );
   } else {

@@ -10,6 +10,7 @@ import Input from "../form/input";
 import Textarea from "../form/textarea";
 import Dropzone from "../form/dropzone";
 import Button from "../button";
+import { Footer } from "../footer";
 
 type FormDataType = {
   name: string;
@@ -47,7 +48,7 @@ export function Contact() {
   }, []);
 
   return (
-    <section className="flex flex-col gap-12 my-8 pb-12">
+    <section className="flex flex-col gap-12 my-8">
       {!isSended ? (
         <>
           <div className="flex flex-col gap-4">
@@ -93,6 +94,7 @@ export function Contact() {
             />
             <Button type="submit">Enviar formulário</Button>
           </Form>
+          <Footer />
         </>
       ) : (
         <>
@@ -106,6 +108,7 @@ export function Contact() {
             </p>
           </div>
           <Sended />
+          <Footer />
         </>
       )}
     </section>

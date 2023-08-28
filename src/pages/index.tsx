@@ -42,7 +42,7 @@ export default function Home({ token }: IHomeProps) {
         <TabsContent value="wind" className="xs:h-[calc(100%-4rem)] h-full">
           <Wind />
         </TabsContent>
-        <TabsContent value="music" className="xs:h-[calc(100%-4rem)] h-full">
+        <TabsContent value="music" className="h-auto">
           <Music token={token} />
         </TabsContent>
       </Tabs>
