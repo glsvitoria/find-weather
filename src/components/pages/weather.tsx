@@ -4,10 +4,10 @@ import { capitalizeFirstLetter } from "@/utils/capitalize";
 import { formatHour } from "@/utils/formatHour";
 import { kelvinToCelsius } from "@/utils/kelvinToCelsius";
 import { renderIconByWeather } from "@/utils/renderIconByWeather";
-import { CloudRain, Info, MapPinLine } from "@phosphor-icons/react";
+import { Info } from "@phosphor-icons/react";
 import { useCallback, useEffect, useState } from "react";
 import { Loading } from "../animations/loading";
-import Button from "../Button";
+import Button from "../button";
 
 interface IFetchWeatherProps {
   latitude: number;

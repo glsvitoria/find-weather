@@ -1,13 +1,23 @@
 import { SpotifyLogo } from "@phosphor-icons/react";
-import Button from "../Button";
+import Button from "../button";
+import Link from "next/link";
+import { WebPlayback } from "../playback";
 
-export function Music() {
-  return (
+interface IMusicProps {
+  token: string;
+}
+
+export function Music({ token }: IMusicProps) {
+  return !token ? (
     <section className="flex flex-col gap-12 my-8 pb-12">
-      <Button className="bg-[#81b71a]">
-        <SpotifyLogo size={24} weight="fill" />
-        Logar com o spotify
-      </Button>
+      <Link href="/api/auth/login">
+        <Button className="bg-[#81b71a]">
+          <SpotifyLogo size={24} weight="fill" />
+          Logar com o spotify
+        </Button>
+      </Link>
     </section>
+  ) : (
+    <WebPlayback token={token} />
   );
 }

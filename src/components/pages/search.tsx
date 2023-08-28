@@ -1,12 +1,12 @@
 import { Form } from "@unform/web";
-import Input from "../form/Input";
+import Input from "../form/input";
 import { useCallback, useRef, useState } from "react";
 import { FormHandles } from "@unform/core/typings";
-import Button from "../Button";
+import Button from "../button";
 import { MagnifyingGlass, Question } from "@phosphor-icons/react";
 import * as Yup from "yup";
 import getValidationErrors from "@/utils/getValidationErrors";
-import { TableResults } from "../TableResults";
+import { TableResults } from "../tableResults";
 import { IResultsAddress } from "@/types/types";
 import { api } from "@/services/api";
 import { Loading } from "../animations/loading";

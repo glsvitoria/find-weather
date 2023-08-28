@@ -1,12 +1,13 @@
-import { Header } from "@/components/Header";
+import { Header } from "@/components/header";
 import { Poppins } from "next/font/google";
 
 import { Tabs, TabsContent } from "@radix-ui/react-tabs";
-import { Weather } from "@/components/pages/Weather";
-import { Search } from "@/components/pages/Search";
-import { Contact } from "@/components/pages/Contact";
-import { Music } from "@/components/pages/Music";
-import { Wind } from "@/components/pages/Wind";
+import { Weather } from "@/components/pages/weather";
+import { Search } from "@/components/pages/search";
+import { Contact } from "@/components/pages/contact";
+import { Wind } from "@/components/pages/wind";
+import { GetServerSideProps } from "next";
+import { Music } from "@/components/pages/music";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -15,7 +16,11 @@ const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-export default function Home() {
+interface IHomeProps {
+  token: string;
+}
+
+export default function Home({ token }: IHomeProps) {
   return (
     <main
       className={`${poppins.className} xs:m-16 m-4 xs:h-[calc(100vh-8rem)] h-[calc(100vh-2rem)] rounded-2xl xs:p-16 p-8 overflow-y-auto`}
@@ -38,9 +43,22 @@ export default function Home() {
           <Wind />
         </TabsContent>
         <TabsContent value="music" className="xs:h-[calc(100%-4rem)] h-full">
-          <Music />
+          <Music token={token} />
         </TabsContent>
       </Tabs>
     </main>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async context => {
+  if (context.req.cookies["spotify-token"]) {
+    const token: string = context.req.cookies["spotify-token"];
+    return {
+      props: { token: token },
+    };
+  } else {
+    return {
+      props: { token: "" },
+    };
+  }
+};
