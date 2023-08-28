@@ -6,6 +6,7 @@ import {
   SkipForward,
   PlayCircle,
 } from "@phosphor-icons/react";
+import SpotifyPlayer from "spotify-web-playback";
 
 const track = {
   name: "",
@@ -22,55 +23,88 @@ interface IWebPlaybackProps {
 export function WebPlayback({ token }: IWebPlaybackProps) {
   const [is_paused, setPaused] = useState(false);
   const [is_active, setActive] = useState(false);
-  const [player, setPlayer] = useState(undefined);
+  const [player, setPlayer] = useState<SpotifyPlayer>();
   const [current_track, setTrack] = useState(track);
 
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://sdk.scdn.co/spotify-player.js";
-    script.async = true;
+    // const script = document.createElement("script");
+    // script.src = "https://sdk.scdn.co/spotify-player.js";
+    // script.async = true;
 
-    document.body.appendChild(script);
+    // document.body.appendChild(script);
 
-    window.onSpotifyWebPlaybackSDKReady = () => {
-      const player = new window.Spotify.Player({
-        name: "Clima.io",
-        getOAuthToken: cb => {
-          cb(token);
-        },
-        volume: 0.5,
+    // this._player = new window.Spotify.Player({
+    //   name,
+    //   volume,
+    //   getOAuthToken: (cb: SpotifyOAuthCallback) => {
+    //     cb(token);
+    //   },
+    // }) as SpotifyWebPlaybackPlayer;
+
+    const spotify = new SpotifyPlayer("Clima.io", 0.5);
+
+    spotify.addListener("ready", device_id => {
+      console.log(device_id);
+
+      console.log("Ready with Device ID", device_id);
+    });
+
+    spotify.addListener("state", state => {
+      if (!state) {
+        return;
+      }
+
+      setTrack(state.track_window.current_track);
+      setPaused(state.paused);
+
+      spotify.getPlaybackState().then(state => {
+        !state ? setActive(false) : setActive(true);
       });
+    });
 
-      setPlayer(player);
+    setPlayer(spotify);
+    spotify.connect(token);
 
-      player.addListener("ready", ({ device_id }: { device_id: number }) => {
-        console.log("Ready with Device ID", device_id);
-      });
 
-      player.addListener(
-        "not_ready",
-        ({ device_id }: { device_id: number }) => {
-          console.log("Device ID has gone offline", device_id);
-        },
-      );
+    // window.onSpotifyWebPlaybackSDKReady = () => {
+    //   const player = new window.Spotify.Player({
+    //     name: "Clima.io",
+    //     getOAuthToken: cb => {
+    //       cb(token);
+    //     },
+    //     volume: 0.5,
+    //   });
 
-      player.addListener("player_state_changed", state => {
-        if (!state) {
-          return;
-        }
+    //   setPlayer(player);
 
-        setTrack(state.track_window.current_track);
-        setPaused(state.paused);
+    //   player.addListener("ready", ({ device_id }: { device_id: number }) => {
+    //     console.log("Ready with Device ID", device_id);
+    //   });
 
-        console.log(state);
+    //   player.addListener(
+    //     "not_ready",
+    //     ({ device_id }: { device_id: number }) => {
+    //       console.log("Device ID has gone offline", device_id);
+    //     },
+    //   );
 
-        player.getCurrentState().then(state => {
-          !state ? setActive(false) : setActive(true);
-        });
-      });
+    //   player.addListener("player_state_changed", state => {
+    //     if (!state) {
+    //       return;
+    //     }
 
-      player.connect();
-    };
+    //     setTrack(state.track_window.current_track);
+    //     setPaused(state.paused);
+
+    //     console.log(state);
+
+    //     player.getCurrentState().then(state => {
+    //       !state ? setActive(false) : setActive(true);
+    //     });
+    //   });
+
+    //   player.connect();
+    // };
   }, []);
 
   if (!is_active) {
@@ -106,7 +140,7 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
               ) : null}
               <div className="flex flex-col justify-between gap-16">
                 <div>
-                  <div className="text-8xl">{current_track?.name}</div>
+                  <div className="text-6xl">{current_track?.name}</div>
                   <div className="text-3xl opacity-40">
                     {current_track?.artists[0].name}
                   </div>
@@ -115,29 +149,36 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
                   <button
                     className="text-6xl flex items-center justify-center rounded-full text-white hover:brightness-75 duration-300"
                     onClick={() => {
-                      player.previousTrack();
+                      player?.previous();
                     }}
                   >
                     <SkipBack size={32} weight="fill" />
                   </button>
 
-                  <button
-                    className="text-6xl flex items-center justify-center rounded-full text-white hover:brightness-75 duration-300"
-                    onClick={() => {
-                      player.togglePlay();
-                    }}
-                  >
-                    {is_paused ? (
+                  {is_paused ? (
+                    <button
+                      className="text-6xl flex items-center justify-center rounded-full text-white hover:brightness-75 duration-300"
+                      onClick={() => {
+                        player?.play();
+                      }}
+                    >
                       <PlayCircle weight="fill" />
-                    ) : (
+                    </button>
+                  ) : (
+                    <button
+                      className="text-6xl flex items-center justify-center rounded-full text-white hover:brightness-75 duration-300"
+                      onClick={() => {
+                        player?.pause();
+                      }}
+                    >
                       <PauseCircle weight="fill" />
-                    )}
-                  </button>
+                    </button>
+                  )}
 
                   <button
                     className="text-6xl flex items-center justify-center rounded-full text-white hover:brightness-75 duration-300"
                     onClick={() => {
-                      player.nextTrack();
+                      player?.next();
                     }}
                   >
                     <SkipForward size={32} weight="fill" />
