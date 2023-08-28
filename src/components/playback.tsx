@@ -8,13 +8,29 @@ import {
 } from "@phosphor-icons/react";
 import SpotifyPlayer from "spotify-web-playback";
 
-const track = {
+const track: ITrack = {
   name: "",
   album: {
     images: [{ url: "" }],
   },
   artists: [{ name: "" }],
 };
+
+interface ITrack {
+  name: string;
+  album: {
+    images: [
+      {
+        url: string;
+      },
+    ];
+  };
+  artists: [
+    {
+      name: string;
+    },
+  ];
+}
 
 interface IWebPlaybackProps {
   token: string;
@@ -24,23 +40,10 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
   const [is_paused, setPaused] = useState(false);
   const [is_active, setActive] = useState(false);
   const [player, setPlayer] = useState<SpotifyPlayer>();
-  const [current_track, setTrack] = useState(track);
+  const [current_track, setTrack] = useState<ITrack>(track);
+  const [next_tracks, setNextTracks] = useState<ITrack[]>([]);
 
   useEffect(() => {
-    // const script = document.createElement("script");
-    // script.src = "https://sdk.scdn.co/spotify-player.js";
-    // script.async = true;
-
-    // document.body.appendChild(script);
-
-    // this._player = new window.Spotify.Player({
-    //   name,
-    //   volume,
-    //   getOAuthToken: (cb: SpotifyOAuthCallback) => {
-    //     cb(token);
-    //   },
-    // }) as SpotifyWebPlaybackPlayer;
-
     const spotify = new SpotifyPlayer("Clima.io", 0.5);
 
     spotify.addListener("ready", device_id => {
@@ -54,7 +57,12 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
         return;
       }
 
+      console.log(state);
+
       setTrack(state.track_window.current_track);
+      setNextTracks(state.track_window.next_tracks);
+      console.log(state.track_window.next_tracks);
+      
       setPaused(state.paused);
 
       spotify.getPlaybackState().then(state => {
@@ -64,54 +72,13 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
 
     setPlayer(spotify);
     spotify.connect(token);
+  }, [token]);
 
-
-    // window.onSpotifyWebPlaybackSDKReady = () => {
-    //   const player = new window.Spotify.Player({
-    //     name: "Clima.io",
-    //     getOAuthToken: cb => {
-    //       cb(token);
-    //     },
-    //     volume: 0.5,
-    //   });
-
-    //   setPlayer(player);
-
-    //   player.addListener("ready", ({ device_id }: { device_id: number }) => {
-    //     console.log("Ready with Device ID", device_id);
-    //   });
-
-    //   player.addListener(
-    //     "not_ready",
-    //     ({ device_id }: { device_id: number }) => {
-    //       console.log("Device ID has gone offline", device_id);
-    //     },
-    //   );
-
-    //   player.addListener("player_state_changed", state => {
-    //     if (!state) {
-    //       return;
-    //     }
-
-    //     setTrack(state.track_window.current_track);
-    //     setPaused(state.paused);
-
-    //     console.log(state);
-
-    //     player.getCurrentState().then(state => {
-    //       !state ? setActive(false) : setActive(true);
-    //     });
-    //   });
-
-    //   player.connect();
-    // };
-  }, []);
-
-  if (!is_active) {
+  if (!is_active && player) {
     return (
       <>
         <div className="h-full flex flex-col justify-between pt-8 xxs:gap-0 gap-8">
-          <div className="lg:text-4xl text-3xl flex flex-col items-center gap-4 text-zinc-400 gap-8">
+          <div className="lg:text-4xl text-3xl flex flex-col items-center gap-4 text-zinc-400">
             <h2 className="lg:text-3xl sm:text-xl text-lg md:text-left text-center">
               Entre no seu spotify por algum dispositivo e transfira para
             </h2>
@@ -128,36 +95,38 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
   } else {
     return (
       <>
-        <section className="flex flex-col gap-12 my-8 pb-12 h-full items-center justify-center">
+        <section className="flex flex-col gap-12 my-8 pb-12 xl:h-full h-auto items-center justify-center">
           <div className="w-full flex flex-col items-center">
-            <div className="flex items-center gap-8">
+            <div className="flex xl:flex-row flex-col items-center gap-8">
               {current_track && current_track.album.images[0].url ? (
                 <img
                   src={current_track.album.images[0].url}
-                  className="w-96 h-96"
+                  className="xl:w-96 sm:w-80 xxs:w-48 w-40 xl:h-96 sm:h-80 xxs:h-48 h-40"
                   alt=""
                 />
               ) : null}
-              <div className="flex flex-col justify-between gap-16">
-                <div>
-                  <div className="text-6xl">{current_track?.name}</div>
-                  <div className="text-3xl opacity-40">
+              <div className="flex flex-col justify-between xl:gap-16 gap-8">
+                <div className="flex flex-col xl:text-left text-center">
+                  <div className="xl:text-6xl sm:text-4xl xxs:text-2xl text-xl">
+                    {current_track?.name}
+                  </div>
+                  <div className="xl:text-3xl sm:text-2xl xxs:text-lg opacity-40">
                     {current_track?.artists[0].name}
                   </div>
                 </div>
                 <div className="flex gap-4 w-auto justify-between">
                   <button
-                    className="text-6xl flex items-center justify-center rounded-full text-white hover:brightness-75 duration-300"
+                    className="xxs:text-6xl text-4xl flex items-center justify-center rounded-full text-white hover:brightness-75 duration-300"
                     onClick={() => {
                       player?.previous();
                     }}
                   >
-                    <SkipBack size={32} weight="fill" />
+                    <SkipBack weight="fill" />
                   </button>
 
                   {is_paused ? (
                     <button
-                      className="text-6xl flex items-center justify-center rounded-full text-white hover:brightness-75 duration-300"
+                      className="xxs:text-6xl text-5xl flex items-center justify-center rounded-full text-white hover:brightness-75 duration-300"
                       onClick={() => {
                         player?.play();
                       }}
@@ -166,7 +135,7 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
                     </button>
                   ) : (
                     <button
-                      className="text-6xl flex items-center justify-center rounded-full text-white hover:brightness-75 duration-300"
+                      className="xxs:text-6xl text-5xl flex items-center justify-center rounded-full text-white hover:brightness-75 duration-300"
                       onClick={() => {
                         player?.pause();
                       }}
@@ -176,17 +145,24 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
                   )}
 
                   <button
-                    className="text-6xl flex items-center justify-center rounded-full text-white hover:brightness-75 duration-300"
+                    className="xxs:text-6xl text-4xl flex items-center justify-center rounded-full text-white hover:brightness-75 duration-300"
                     onClick={() => {
                       player?.next();
                     }}
                   >
-                    <SkipForward size={32} weight="fill" />
+                    <SkipForward weight="fill" />
                   </button>
                 </div>
               </div>
             </div>
           </div>
+          {next_tracks && next_tracks.length > 0 && (
+            <div className="flex flex-col gap-4">
+              <h2 className="text-white text-2xl">Próximas músicas</h2>
+              <p>{next_tracks[0].name}</p>
+              <p>{next_tracks[1].name}</p>
+            </div>
+          )}
         </section>
       </>
     );
