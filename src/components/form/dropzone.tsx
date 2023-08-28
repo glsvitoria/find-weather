@@ -13,7 +13,7 @@ import { overrideTailwindClasses } from "tailwind-override";
 import readFileAsDataURL from "@/utils/readFileAsDataURL";
 import { v4 as uuidv4 } from "uuid";
 import { AttachmentData } from "@/types/types";
-import FileItem from "./FileItem";
+import FileItem from "./fileItem";
 import { toast } from "react-toastify";
 
 interface IDropzoneProps extends InputHTMLAttributes<HTMLInputElement> {

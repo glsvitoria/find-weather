@@ -27,7 +27,7 @@ export function Weather() {
   const [forecast, setForecast] = useState<IForecast[]>([]);
   const [location, setLocation] = useState("");
 
-  const [havePermission, setHavePermission] = useState(false);
+  const [havePermission, setHavePermission] = useState(true);
 
   const [errorInRequest, setErrorInRequest] = useState(false);
 

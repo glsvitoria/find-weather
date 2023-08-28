@@ -38,7 +38,10 @@ export function Contact() {
     try {
       await schema.validate(data, { abortEarly: false });
       console.log(data);
-      setIsSended(true);
+
+      setTimeout(() => {
+        setIsSended(true);
+      }, 1000);
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         const errors = getValidationErrors(error);
