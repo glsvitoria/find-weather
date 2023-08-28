@@ -54,6 +54,32 @@ A Aplicação deve seguir os seguintes desafios:
 - Não sobrecarga de alguma API de terceiro (evitar muitas
   requisições em pouco tempo
 
+
+### Perguntas a serem respondidas?
+
+- Qual foi a maior dificuldade que você enfrentou ao realizar o teste?
+
+    A maior dificuldade que eu tive dentro do projeto foi fazer o manejo das API's que estão sendo utilizadas para buscar os dados necessários, se tratando de mais de um tipo de API e na página principal é necessário fazer mais de uma requisição para obter todos os dados. E pela utilização do NextJS, transferi essas requisições para o Back-End que o Next proporciona para poder separar mais essas funções e ficar mais organizado.
+- Descreva a funcionalidade e o por quê da utilização das bibliotecas 
+escolhidas por você para concluir o desafio.
+
+  As funcionalidades da aplicação se tratam de 3:
+    
+    1. Buscar o clima de acordo com a sua localização
+    2. Encontrar o seu CEP de acordo com o seu endereço
+    3. Envio de formulário de contato
+
+  As tecnologias utilizadas se tratam do NextJS + TypeScript como a grande carga do projeto e as duas utilizações são pela fato da performance que o NextJS proporciona para a aplicação e o BackEnd que ele proporciona. Não foi possível utilizar o Server Side com mais expressão por conta que as requisições necessitavam de dados do FrontEnd primeiramente, e o TypeScript pelo fato da sua tipagem de dados.
+
+  Utilizei também o Axios para poder fazer essas requisições com maior facilidade e performance. Trouxe o ShadCN para a utilização de seus componentes já prontos e reutilizáveis. O TailwindCSS para criar toda a estilização da aplicação com o css-in-js ao qual traz mais clareza qual estilo está sendo aplicado em cada elemento em tela. E o phosphor react que é a biblioteca de ícones utilizada.
+
+  Trouxe também o Unform + Yup para fazer a validação dos formulários mostrando as mensagem de erros na hora do envio utilizando a forma uncontrolled ao qual não é verificado o conteúdo do input a cada alteração, mas sim quando ele é enviado.
+- Como você se vê daqui a 5 anos?
+
+    Daqui a 5 anos eu me vejo sendo um Desenvolvedor Front-End Pleno em busca da Senioridade, dentro de uma empresa em que esteja trabalhando feliz e em um ambiente acolhedor pelos membros. Criando aplicações grandes e impactantes para os seus usuários. Poder estar realizando o sonho de trabalhar sem barreiras físicas, ou seja, de onde eu me sentir mais feliz e a vontade.
+- Caso você tenha dado um “Tchammmm!” na sua aplicação, descreva o
+que você fez, como isso irá melhorar a experiência do usuário.
+
 ### Como rodar o projeto
 
 ---
