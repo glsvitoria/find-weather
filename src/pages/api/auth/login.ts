@@ -13,7 +13,8 @@ const generateRandomString = (length: number): string => {
 
 const login = (req: NextApiRequest, res: NextApiResponse) => {
   const scope: string = "streaming user-read-email user-read-private";
-  const spotify_redirect_uri = "http://localhost:3000/api/auth/callback";
+  const spotify_redirect_uri =
+    process.env.NEXT_PUBLIC_API_URL + "/auth/callback";
   const state: string = generateRandomString(16);
 
   let spotify_client_id: string = "";

@@ -30,7 +30,8 @@ export const setCookie = (
 
 const callback = async (req: NextApiRequest, res: NextApiResponse) => {
   const code = req.query.code;
-  const spotify_redirect_uri = "http://localhost:3000/api/auth/callback";
+  const spotify_redirect_uri =
+    process.env.NEXT_PUBLIC_API_URL + "/auth/callback";
 
   let spotify_client_id: string = "";
   if (process.env.SPOTIFY_CLIENT_ID) {
