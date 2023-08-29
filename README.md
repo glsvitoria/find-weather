@@ -61,18 +61,18 @@ A Aplicação deve seguir os seguintes desafios:
 
       A maior dificuldade do sistema com certeza foi fazer a criação do playback e integração com a API do Spotify. Nunca tinha feito uso dessa API, então foi um grande desafio fazer essa integração, criar as rotas para permitir a autenticação no sistema deles, ter um algoritmo para avaliar se o token ainda está válido ou não e em seguida poder ouvir a música pela aplicação. Deu muita dor de cabeça para conseguir integrar e fazer funcionar direitinho KKKKKK, mas ao final deu tudo certo e está funcionando perfeitamente agora.
 
-Descreva a funcionalidade e o por quê da utilização das bibliotecas 
+- Descreva a funcionalidade e o por quê da utilização das bibliotecas 
 escolhidas por você para concluir o desafio.
 
-  As funcionalidades da aplicação se tratam de 3:
+      As funcionalidades da aplicação se tratam de 3:
     
-    1. Buscar o clima de acordo com a sua localização
-    2. Encontrar o seu CEP de acordo com o seu endereço
-    3. Envio de formulário de contato
+      1. Buscar o clima de acordo com a sua localização
+      2. Encontrar o seu CEP de acordo com o seu endereço
+      3. Envio de formulário de contato
 
-    As tecnologias utilizadas se tratam do NextJS + TypeScript como a grande carga do projeto e as duas utilizações são pela fato da performance que o NextJS proporciona para a aplicação e o BackEnd que ele proporciona. Não foi possível utilizar o Server Side com mais expressão por conta que as requisições necessitavam de dados do FrontEnd primeiramente, e o TypeScript pelo fato da sua tipagem de dados.
+      As tecnologias utilizadas se tratam do NextJS + TypeScript como a grande carga do projeto e as duas utilizações são pela fato da performance que o NextJS proporciona para a aplicação e o BackEnd que ele proporciona. Não foi possível utilizar o Server Side com mais expressão por conta que as requisições necessitavam de dados do FrontEnd primeiramente, e o TypeScript pelo fato da sua tipagem de dados.
 
-    Utilizei também o Axios para poder fazer essas requisições com maior facilidade e performance. Trouxe o ShadCN para a utilização de seus componentes já prontos e reutilizáveis. O TailwindCSS para criar toda a estilização da aplicação com o css-in-js ao qual traz mais clareza qual estilo está sendo aplicado em cada elemento em tela. E o phosphor react que é a biblioteca de ícones utilizada.
+      Utilizei também o Axios para poder fazer essas requisições com maior facilidade e performance. Trouxe o ShadCN para a utilização de seus componentes já prontos e reutilizáveis. O TailwindCSS para criar toda a estilização da aplicação com o css-in-js ao qual traz mais clareza qual estilo está sendo aplicado em cada elemento em tela. E o phosphor react que é a biblioteca de ícones utilizada.
 
     Trouxe também o Unform + Yup para fazer a validação dos formulários mostrando as mensagem de erros na hora do envio utilizando a forma uncontrolled ao qual não é verificado o conteúdo do input a cada alteração, mas sim quando ele é enviado.
 - Como você se vê daqui a 5 anos?
