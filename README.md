@@ -59,9 +59,7 @@ A Aplicação deve seguir os seguintes desafios:
 
 - Qual foi a maior dificuldade que você enfrentou ao realizar o teste?
 
-    A maior dificuldade que eu tive dentro do projeto foi fazer o manejo das API's que estão sendo utilizadas para buscar os dados necessários, se tratando de mais de um tipo de API e na página principal é necessário fazer mais de uma requisição para obter todos os dados. E pela utilização do NextJS, transferi essas requisições para o Back-End que o Next proporciona para poder separar mais essas funções e ficar mais organizado.
-- Descreva a funcionalidade e o por quê da utilização das bibliotecas 
-escolhidas por você para concluir o desafio.
+    A maior dificuldade do sistema com certeza foi fazer a criação do playback e integração com a API do Spotify. Nunca tinha feito uso dessa API, então foi um grande desafio fazer essa integração, criar as rotas para permitir a autenticação no sistema deles, ter um algoritmo para avaliar se o token ainda está válido ou não e em seguida poder ouvir a música pela aplicação. Deu muita dor de cabeça para conseguir integrar e fazer funcionar direitinho KKKKKK, mas ao final deu tudo certo e está funcionando perfeitamente agora.
 
   As funcionalidades da aplicação se tratam de 3:
     
@@ -77,8 +75,14 @@ escolhidas por você para concluir o desafio.
 - Como você se vê daqui a 5 anos?
 
     Daqui a 5 anos eu me vejo sendo um Desenvolvedor Front-End Pleno em busca da Senioridade, dentro de uma empresa em que esteja trabalhando feliz e em um ambiente acolhedor pelos membros. Criando aplicações grandes e impactantes para os seus usuários. Poder estar realizando o sonho de trabalhar sem barreiras físicas, ou seja, de onde eu me sentir mais feliz e a vontade.
+
 - Caso você tenha dado um “Tchammmm!” na sua aplicação, descreva o
 que você fez, como isso irá melhorar a experiência do usuário.
+
+Caso você tenha dado um “Tchammmm!” na sua aplicação, descreva o
+que você fez, como isso irá melhorar a experiência do usuário.
+
+    Posso considerar muitas coisas como esse Tchammmm! do projeto como a questão da facilidade de uso da aplicação, a todo momento dando feedback do que está acontecendo na aplicação como por exemplo loadings e confirmação de envio do formulário. Porém o que agarrei mesmo para ser esse Tchammmm! foi a integração do Spotify, que já descrevei bem na pergunta feita acima, porém além de toda essa integração, eu me preocupei com o usuário e na página de música foi feito um guia para poder ensinar ao usuário o que fazer para poder ouvir a música dele, com tópico passo a passo até chegar lá. Outro ponto a mais também não página de música é além de mostrar a música atual e os controles para poder trocar ou pausar, foi feito também a barra de contagem do tempo da música fazendo essa cálculo baseado na duração inteira da música e uma função com setInterval a cada segundo e ir evoluindo o componente. Também é mostrado as próximas músicas que irão ser tocadas para o usuário decidir se quer trocar de música para a próxima ou o que deseja fazer.
 
 ### Como rodar o projeto
 
