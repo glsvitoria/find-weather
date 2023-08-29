@@ -6,7 +6,7 @@ import {
   SkipForward,
   PlayCircle,
 } from "@phosphor-icons/react";
-import SpotifyPlayer from "spotify-web-playback";
+import SpotifyPlayer, { SpotifyWebPlaybackTrack } from "spotify-web-playback";
 import Image from "next/image";
 import SpotifyGuiderOne from "../assets/listen-music-guide-one.png";
 import SpotifyGuiderTwo from "../assets/listen-music-guide-two.png";
@@ -15,31 +15,37 @@ import { Footer } from "./footer";
 import { Progress } from "./ui/progress";
 import { convertMsInMinutes } from "@/utils/convertMsinMinutes";
 
-const track: ITrack = {
-  name: "",
-  album: {
-    images: [{ url: "" }],
-  },
-  artists: [{ name: "" }],
-  duration_ms: 0,
-};
-
-interface ITrack {
-  name: string;
+const track: SpotifyWebPlaybackTrack = {
   album: {
     images: [
       {
-        url: string;
+        url: "",
+        height: 0,
+        width: 0,
       },
-    ];
-  };
+    ],
+    name: "",
+    uri: "",
+  },
   artists: [
     {
-      name: string;
+      name: "",
+      uri: "",
     },
-  ];
-  duration_ms: number;
-}
+  ],
+  duration_ms: 0,
+  name: "",
+  uri: "",
+  id: "",
+  is_playable: false,
+  linked_from: {
+    uri: null,
+    id: null,
+  },
+  linked_from_uri: null,
+  media_type: "",
+  type: "",
+};
 
 interface IWebPlaybackProps {
   token: string;
@@ -49,8 +55,8 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
   const [is_paused, setPaused] = useState(false);
   const [is_active, setActive] = useState(false);
   const [player, setPlayer] = useState<SpotifyPlayer>();
-  const [current_track, setTrack] = useState<ITrack>(track);
-  const [next_tracks, setNextTracks] = useState<ITrack[]>([]);
+  const [current_track, setTrack] = useState<SpotifyWebPlaybackTrack>(track);
+  const [next_tracks, setNextTracks] = useState<SpotifyWebPlaybackTrack[]>([]);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -85,8 +91,6 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
       if (!state) {
         return;
       }
-
-      console.log(state);
 
       setTrack(state.track_window.current_track);
       setNextTracks(state.track_window.next_tracks);
@@ -244,7 +248,7 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
 }
 
 interface ITrackItemProps {
-  track: ITrack;
+  track: SpotifyWebPlaybackTrack;
 }
 
 function TrackItem({ track }: ITrackItemProps) {
