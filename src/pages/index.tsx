@@ -8,11 +8,10 @@ import { Contact } from "@/components/pages/contact";
 import { Wind } from "@/components/pages/wind";
 import { GetServerSideProps } from "next";
 import { Music } from "@/components/pages/music";
+import { isBefore } from "date-fns";
 
 const poppins = Poppins({
   subsets: ["latin"],
-  display: "swap",
-  variable: "--font-poppins",
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
@@ -23,7 +22,7 @@ interface IHomeProps {
 export default function Home({ token }: IHomeProps) {
   return (
     <main
-      className={`${poppins.className} xs:m-16 m-4 xs:h-[calc(100vh-8rem)] h-[calc(100vh-2rem)] rounded-2xl xs:p-16 p-8 overflow-y-auto`}
+      className={`${poppins.className} xs:m-16 m-4 xs:h-[calc(100vh-8rem)] h-[calc(100vh-2rem)] rounded-2xl xs:p-16 p-8 overflow-y-auto text-white`}
     >
       <Tabs
         defaultValue="home"
@@ -52,10 +51,17 @@ export default function Home({ token }: IHomeProps) {
 
 export const getServerSideProps: GetServerSideProps = async context => {
   if (context.req.cookies["spotify-token"]) {
-    const token: string = context.req.cookies["spotify-token"];
-    return {
-      props: { token: token },
-    };
+    const optionsToken = JSON.parse(context.req.cookies["spotify-token"]);
+
+    if (isBefore(new Date(), new Date(optionsToken.expires))) {
+      return {
+        props: { token: optionsToken.token },
+      };
+    } else {
+      return {
+        props: { token: "" },
+      };
+    }
   } else {
     return {
       props: { token: "" },

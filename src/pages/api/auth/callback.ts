@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { serialize, CookieSerializeOptions } from "cookie";
 import axios from "axios";
+import { addHours } from "date-fns";
 
 type SpotifyAuthApiResponse = {
   access_token: string;
@@ -72,7 +73,14 @@ const callback = async (req: NextApiRequest, res: NextApiResponse) => {
     )
     .then(response => {
       if (response.data.access_token) {
-        setCookie(res, "spotify-token", response.data.access_token);
+        console.log(response.data.access_token);
+
+        const optionsCookies = {
+          token: response.data.access_token,
+          expires: addHours(new Date(), 1).toString(),
+        };
+
+        setCookie(res, "spotify-token", JSON.stringify(optionsCookies));
         res.status(200).redirect("/");
       }
     })

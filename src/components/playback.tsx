@@ -12,6 +12,8 @@ import SpotifyGuiderOne from "../assets/listen-music-guide-one.png";
 import SpotifyGuiderTwo from "../assets/listen-music-guide-two.png";
 import SpotifyGuiderThree from "../assets/enjoy-music.png";
 import { Footer } from "./footer";
+import { Progress } from "./ui/progress";
+import { convertMsInMinutes } from "@/utils/convertMsinMinutes";
 
 const track: ITrack = {
   name: "",
@@ -19,6 +21,7 @@ const track: ITrack = {
     images: [{ url: "" }],
   },
   artists: [{ name: "" }],
+  duration_ms: 0,
 };
 
 interface ITrack {
@@ -35,6 +38,7 @@ interface ITrack {
       name: string;
     },
   ];
+  duration_ms: number;
 }
 
 interface IWebPlaybackProps {
@@ -47,6 +51,26 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
   const [player, setPlayer] = useState<SpotifyPlayer>();
   const [current_track, setTrack] = useState<ITrack>(track);
   const [next_tracks, setNextTracks] = useState<ITrack[]>([]);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if (is_paused) return;
+    const interval = setInterval(() => {
+      // Calcula o incremento baseado no estado progress e duration
+      const increment = 1000;
+
+      setProgress(prevProgress => {
+        const newProgress = prevProgress + increment;
+        return newProgress >= current_track.duration_ms
+          ? current_track.duration_ms
+          : newProgress; // Limite de 100%
+      });
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [progress, is_paused]);
 
   useEffect(() => {
     const spotify = new SpotifyPlayer("Clima.io", 0.5);
@@ -66,17 +90,13 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
 
       setTrack(state.track_window.current_track);
       setNextTracks(state.track_window.next_tracks);
-      console.log(state.track_window.next_tracks);
-
       setPaused(state.paused);
+      setProgress(state.position);
 
       spotify.getPlaybackState().then(state => {
         !state ? setActive(false) : setActive(true);
       });
     });
-
-    console.log(spotify);
-    
 
     setPlayer(spotify);
     spotify.connect(token);
@@ -138,7 +158,7 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
       <>
         <section className="flex flex-col gap-12 my-8 pb-12 xl:h-full h-auto items-center justify-center">
           <div className="w-full flex flex-col items-center">
-            <div className="flex xl:flex-row flex-col items-center gap-8">
+            <div className="flex xl:flex-row flex-col items-center gap-8 w-full">
               {current_track && current_track.album.images[0].url ? (
                 <img
                   src={current_track.album.images[0].url}
@@ -146,12 +166,12 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
                   alt=""
                 />
               ) : null}
-              <div className="flex flex-col justify-between xl:gap-16 gap-8">
-                <div className="flex flex-col xl:text-left text-center">
-                  <div className="xl:text-6xl sm:text-4xl xxs:text-2xl text-xl">
+              <div className="flex flex-col justify-between xl:h-96 h-72">
+                <div className="flex flex-col xl:text-left text-center gap-3">
+                  <div className="xl:text-5xl sm:text-3xl xxs:text-2xl text-xl">
                     {current_track?.name}
                   </div>
-                  <div className="xl:text-3xl sm:text-2xl xxs:text-lg opacity-40">
+                  <div className="xl:text-4xl sm:text-xl xxs:text-lg opacity-40">
                     {current_track?.artists[0].name}
                   </div>
                 </div>
@@ -194,18 +214,55 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
                     <SkipForward weight="fill" />
                   </button>
                 </div>
+                <div className="flex flex-col gap-2">
+                  <Progress
+                    value={(progress * 100) / current_track.duration_ms}
+                  />
+                  <div className="flex justify-between">
+                    <p>{convertMsInMinutes(progress)}</p>
+                    <p className="opacity-50">
+                      {convertMsInMinutes(current_track.duration_ms)}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           {next_tracks && next_tracks.length > 0 && (
-            <div className="flex flex-col gap-4">
-              <h2 className="text-white text-2xl">Próximas músicas</h2>
-              <p>{next_tracks[0].name}</p>
-              <p>{next_tracks[1].name}</p>
+            <div className="flex flex-col gap-4 w-full">
+              <h2 className="text-white text-2xl">A seguir...</h2>
+              <div className="grid lg:grid-cols-2 w-full lg:gap-0 gap-8">
+                <TrackItem track={next_tracks[0]} />
+                <TrackItem track={next_tracks[1]} />
+              </div>
             </div>
           )}
         </section>
       </>
     );
   }
+}
+
+interface ITrackItemProps {
+  track: ITrack;
+}
+
+function TrackItem({ track }: ITrackItemProps) {
+  return (
+    <div className="flex items-center gap-4">
+      <img
+        src={track.album.images[0].url}
+        className="xl:w-48 lg:w-32 sm:w-40 xxs:w-32 w-24 xl:h-48 lg:h-32 sm:h-40 xxs:h-32 h-24"
+        alt=""
+      />
+      <div>
+        <p className="xl:text-2xl lg:text-xl sm:text-2xl xxs:text-xl">
+          {track.name}
+        </p>
+        <p className="xl:text-xl lg:text-lg sm:text-xl xxs:text-lg text-sm opacity-60">
+          {track.artists[0].name}
+        </p>
+      </div>
+    </div>
+  );
 }

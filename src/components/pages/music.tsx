@@ -8,7 +8,7 @@ interface IMusicProps {
 }
 
 export function Music({ token }: IMusicProps) {
-  return !token ? (
+  return token === "" ? (
     <section className="flex flex-col gap-12 my-8 pb-12">
       <Link href="/api/auth/login">
         <Button className="bg-[#81b71a]">
