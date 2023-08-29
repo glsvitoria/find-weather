@@ -82,7 +82,7 @@ const callback = async (req: NextApiRequest, res: NextApiResponse) => {
         };
 
         setCookie(res, "spotify-token", JSON.stringify(optionsCookies));
-        res.status(200).redirect("/");
+        res.status(200).redirect("/?action=music");
       }
     })
     .catch(error => {

@@ -9,6 +9,7 @@ import { Wind } from "@/components/pages/wind";
 import { GetServerSideProps } from "next";
 import { Music } from "@/components/pages/music";
 import { isBefore } from "date-fns";
+import { useRouter } from "next/router";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -20,12 +21,14 @@ interface IHomeProps {
 }
 
 export default function Home({ token }: IHomeProps) {
+  const { query } = useRouter();
+
   return (
     <main
       className={`${poppins.className} xs:m-16 m-4 xs:h-[calc(100vh-8rem)] h-[calc(100vh-2rem)] rounded-2xl xs:p-16 p-8 overflow-y-auto text-white`}
     >
       <Tabs
-        defaultValue="home"
+        defaultValue={query.action === "music" ? "music" : "home"}
         className="xs:h-[calc(100vh-16rem)] h-[calc(100vh-16rem)]"
       >
         <Header />
