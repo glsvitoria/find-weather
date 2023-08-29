@@ -128,6 +128,7 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
                   src={SpotifyGuiderOne}
                   alt="Guia do Spotify"
                   className="xl:w-80 lg:w-64 md:w-48 w-full md:ml-auto"
+                  placeholder="blur"
                 />
               </li>
               <li className="md:grid md:grid-cols-2 flex flex-col-reverse items-center gap-4">
@@ -135,6 +136,8 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
                   src={SpotifyGuiderTwo}
                   alt="Guia do Spotify"
                   className="xl:w-80 lg:w-64 md:w-48 w-full md:ml-right"
+                  placeholder="blur"
+
                 />
                 <p className="xl:text-2xl lg:text-xl">
                   2. Selecione o dispositivo "Clima.io" para poder transmitir a
@@ -149,6 +152,8 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
                   src={SpotifyGuiderThree}
                   alt="Guia do Spotify"
                   className="xl:w-80 lg:w-64 md:w-48 w-full md:ml-auto"
+                  placeholder="blur"
+
                 />
               </li>
             </ol>
