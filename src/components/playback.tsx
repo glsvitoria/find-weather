@@ -76,7 +76,7 @@ export function WebPlayback({ token }: IWebPlaybackProps) {
     return () => {
       clearInterval(interval);
     };
-  }, [progress, is_paused]);
+  }, [progress, is_paused, is_active]);
 
   useEffect(() => {
     const spotify = new SpotifyPlayer("Clima.io", 0.5);
