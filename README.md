@@ -55,11 +55,14 @@ A Aplicação deve seguir os seguintes desafios:
   requisições em pouco tempo
 
 
-### Perguntas a serem respondidas?
+### Perguntas a serem respondidas
 
 - Qual foi a maior dificuldade que você enfrentou ao realizar o teste?
 
-    A maior dificuldade do sistema com certeza foi fazer a criação do playback e integração com a API do Spotify. Nunca tinha feito uso dessa API, então foi um grande desafio fazer essa integração, criar as rotas para permitir a autenticação no sistema deles, ter um algoritmo para avaliar se o token ainda está válido ou não e em seguida poder ouvir a música pela aplicação. Deu muita dor de cabeça para conseguir integrar e fazer funcionar direitinho KKKKKK, mas ao final deu tudo certo e está funcionando perfeitamente agora.
+      A maior dificuldade do sistema com certeza foi fazer a criação do playback e integração com a API do Spotify. Nunca tinha feito uso dessa API, então foi um grande desafio fazer essa integração, criar as rotas para permitir a autenticação no sistema deles, ter um algoritmo para avaliar se o token ainda está válido ou não e em seguida poder ouvir a música pela aplicação. Deu muita dor de cabeça para conseguir integrar e fazer funcionar direitinho KKKKKK, mas ao final deu tudo certo e está funcionando perfeitamente agora.
+
+Descreva a funcionalidade e o por quê da utilização das bibliotecas 
+escolhidas por você para concluir o desafio.
 
   As funcionalidades da aplicação se tratam de 3:
     
@@ -67,19 +70,19 @@ A Aplicação deve seguir os seguintes desafios:
     2. Encontrar o seu CEP de acordo com o seu endereço
     3. Envio de formulário de contato
 
-  As tecnologias utilizadas se tratam do NextJS + TypeScript como a grande carga do projeto e as duas utilizações são pela fato da performance que o NextJS proporciona para a aplicação e o BackEnd que ele proporciona. Não foi possível utilizar o Server Side com mais expressão por conta que as requisições necessitavam de dados do FrontEnd primeiramente, e o TypeScript pelo fato da sua tipagem de dados.
+    As tecnologias utilizadas se tratam do NextJS + TypeScript como a grande carga do projeto e as duas utilizações são pela fato da performance que o NextJS proporciona para a aplicação e o BackEnd que ele proporciona. Não foi possível utilizar o Server Side com mais expressão por conta que as requisições necessitavam de dados do FrontEnd primeiramente, e o TypeScript pelo fato da sua tipagem de dados.
 
-  Utilizei também o Axios para poder fazer essas requisições com maior facilidade e performance. Trouxe o ShadCN para a utilização de seus componentes já prontos e reutilizáveis. O TailwindCSS para criar toda a estilização da aplicação com o css-in-js ao qual traz mais clareza qual estilo está sendo aplicado em cada elemento em tela. E o phosphor react que é a biblioteca de ícones utilizada.
+    Utilizei também o Axios para poder fazer essas requisições com maior facilidade e performance. Trouxe o ShadCN para a utilização de seus componentes já prontos e reutilizáveis. O TailwindCSS para criar toda a estilização da aplicação com o css-in-js ao qual traz mais clareza qual estilo está sendo aplicado em cada elemento em tela. E o phosphor react que é a biblioteca de ícones utilizada.
 
-  Trouxe também o Unform + Yup para fazer a validação dos formulários mostrando as mensagem de erros na hora do envio utilizando a forma uncontrolled ao qual não é verificado o conteúdo do input a cada alteração, mas sim quando ele é enviado.
+    Trouxe também o Unform + Yup para fazer a validação dos formulários mostrando as mensagem de erros na hora do envio utilizando a forma uncontrolled ao qual não é verificado o conteúdo do input a cada alteração, mas sim quando ele é enviado.
 - Como você se vê daqui a 5 anos?
 
-    Daqui a 5 anos eu me vejo sendo um Desenvolvedor Front-End Pleno em busca da Senioridade, dentro de uma empresa em que esteja trabalhando feliz e em um ambiente acolhedor pelos membros. Criando aplicações grandes e impactantes para os seus usuários. Poder estar realizando o sonho de trabalhar sem barreiras físicas, ou seja, de onde eu me sentir mais feliz e a vontade.
+      Daqui a 5 anos eu me vejo sendo um Desenvolvedor Front-End Pleno em busca da Senioridade, dentro de uma empresa em que esteja trabalhando feliz e em um ambiente acolhedor pelos membros. Criando aplicações grandes e impactantes para os seus usuários. Poder estar realizando o sonho de trabalhar sem barreiras físicas, ou seja, de onde eu me sentir mais feliz e a vontade.
 
 - Caso você tenha dado um “Tchammmm!” na sua aplicação, descreva o
 que você fez, como isso irá melhorar a experiência do usuário.
 
-    Posso considerar muitas coisas como esse Tchammmm! do projeto como a questão da facilidade de uso da aplicação, a todo momento dando feedback do que está acontecendo na aplicação como por exemplo loadings e confirmação de envio do formulário. Porém o que agarrei mesmo para ser esse Tchammmm! foi a integração do Spotify, que já descrevei bem na pergunta feita acima, porém além de toda essa integração, eu me preocupei com o usuário e na página de música foi feito um guia para poder ensinar ao usuário o que fazer para poder ouvir a música dele, com tópico passo a passo até chegar lá. Outro ponto a mais também não página de música é além de mostrar a música atual e os controles para poder trocar ou pausar, foi feito também a barra de contagem do tempo da música fazendo essa cálculo baseado na duração inteira da música e uma função com setInterval a cada segundo e ir evoluindo o componente. Também é mostrado as próximas músicas que irão ser tocadas para o usuário decidir se quer trocar de música para a próxima ou o que deseja fazer.
+      Posso considerar muitas coisas como esse Tchammmm! do projeto como a questão da facilidade de uso da aplicação, a todo momento dando feedback do que está acontecendo na aplicação como por exemplo loadings e confirmação de envio do formulário. Porém o que agarrei mesmo para ser esse Tchammmm! foi a integração do Spotify, que já descrevei bem na pergunta feita acima, porém além de toda essa integração, eu me preocupei com o usuário e na página de música foi feito um guia para poder ensinar ao usuário o que fazer para poder ouvir a música dele, com tópico passo a passo até chegar lá. Outro ponto a mais também não página de música é além de mostrar a música atual e os controles para poder trocar ou pausar, foi feito também a barra de contagem do tempo da música fazendo essa cálculo baseado na duração inteira da música e uma função com setInterval a cada segundo e ir evoluindo o componente. Também é mostrado as próximas músicas que irão ser tocadas para o usuário decidir se quer trocar de música para a próxima ou o que deseja fazer.
 
 ### Como rodar o projeto
 
